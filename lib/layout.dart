@@ -33,7 +33,8 @@ class _LayoutState extends State<MyLayout> {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 6.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -44,14 +45,14 @@ class _LayoutState extends State<MyLayout> {
                     })
                   },
                   child: Container(
-                    height: 32,
+                    height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 0
                           ? "assets/icons/common/navbar/64/HomeTapped.png"
                           : "assets/icons/common/navbar/64/Home.png",
-                      width: 32,
-                      height: 32,
+                      width: 28,
+                      height: 28,
                     ),
                   ),
                 ),
@@ -62,14 +63,14 @@ class _LayoutState extends State<MyLayout> {
                     })
                   },
                   child: Container(
-                    height: 32,
+                    height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 1
                           ? "assets/icons/common/navbar/64/MortarboardTapped.png"
                           : "assets/icons/common/navbar/64/Mortarboard.png",
-                      width: 32,
-                      height: 32,
+                      width: 28,
+                      height: 28,
                     ),
                   ),
                 ),
@@ -80,14 +81,14 @@ class _LayoutState extends State<MyLayout> {
                     })
                   },
                   child: Container(
-                    height: 32,
+                    height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 2
                           ? "assets/icons/common/navbar/64/DocumentTapped.png"
                           : "assets/icons/common/navbar/64/Document.png",
-                      width: 32,
-                      height: 32,
+                      width: 28,
+                      height: 28,
                     ),
                   ),
                 ),
@@ -98,14 +99,14 @@ class _LayoutState extends State<MyLayout> {
                     })
                   },
                   child: Container(
-                    height: 32,
+                    height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 3
                           ? "assets/icons/common/navbar/64/MessageTapped.png"
                           : "assets/icons/common/navbar/64/Message.png",
-                      width: 32,
-                      height: 32,
+                      width: 28,
+                      height: 28,
                     ),
                   ),
                 ),
@@ -116,14 +117,14 @@ class _LayoutState extends State<MyLayout> {
                     })
                   },
                   child: Container(
-                    height: 32,
+                    height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 4
                           ? "assets/icons/common/navbar/64/MenuTapped.png"
                           : "assets/icons/common/navbar/64/Menu.png",
-                      width: 32,
-                      height: 32,
+                      width: 28,
+                      height: 28,
                     ),
                   ),
                 ),
