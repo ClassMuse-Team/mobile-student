@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_student/screens/classroom_screen.dart';
+import 'package:mobile_student/screens/feed_screen.dart';
+import 'package:mobile_student/screens/home_screen.dart';
+import 'package:mobile_student/screens/menu_screen.dart';
+import 'package:mobile_student/screens/message_screen.dart';
 
 class MyLayout extends StatefulWidget {
   const MyLayout({
     super.key,
+    this.isLogined = false,
   });
+  final bool isLogined;
 
   @override
   State<MyLayout> createState() => _LayoutState();
@@ -15,16 +21,17 @@ class _LayoutState extends State<MyLayout> {
 
   static const List<Widget> _screens = <Widget>[
     HomeScreen(),
-    Text('Classroom'),
-    Text('Search'),
-    Text('Feed'),
-    Text('Menu'),
+    ClassroomScreen(),
+    FeedScreen(),
+    MessageScreen(),
+    MenuScreen()
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
+    if (widget.isLogined) {
+      return Scaffold(
+        // appBar: AppBar(),
         body: _screens.elementAt(_selectedIndex),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
@@ -131,6 +138,28 @@ class _LayoutState extends State<MyLayout> {
               ],
             ),
           ),
-        ));
+        ),
+      );
+    } else {
+      return const Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [],
+              ),
+              Text(
+                "클래스뮤즈에 오신것을 환영합니다!",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
   }
 }

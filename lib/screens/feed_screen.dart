@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_student/widgets/search_bar.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class FeedScreen extends StatelessWidget {
+  const FeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
       child: Column(
-        children: [Text("this is home")],
+        children: [
+          MySearchBar("게시물 검색하기"),
+        ],
       ),
     );
   }
