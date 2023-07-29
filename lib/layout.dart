@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_student/screens/classroom_screen.dart';
 import 'package:mobile_student/screens/feed_screen.dart';
 import 'package:mobile_student/screens/home_screen.dart';
 import 'package:mobile_student/screens/menu_screen.dart';
 import 'package:mobile_student/screens/message_screen.dart';
+import 'package:mobile_student/screens/login/login_screen.dart';
 
-class MyLayout extends StatefulWidget {
-  const MyLayout({
+class MyLayout extends StatelessWidget {
+  MyLayout({
     super.key,
     this.isLogined = false,
   });
   final bool isLogined;
 
-  @override
-  State<MyLayout> createState() => _LayoutState();
-}
-
-class _LayoutState extends State<MyLayout> {
   int _selectedIndex = 0;
 
   static const List<Widget> _screens = <Widget>[
@@ -29,7 +26,7 @@ class _LayoutState extends State<MyLayout> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isLogined) {
+    if (isLogined) {
       return Scaffold(
         // appBar: AppBar(),
         body: _screens.elementAt(_selectedIndex),
@@ -46,90 +43,70 @@ class _LayoutState extends State<MyLayout> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextButton(
-                  onPressed: () => {
-                    setState(() {
-                      _selectedIndex = 0;
-                    })
-                  },
+                  onPressed: () => {_selectedIndex = 0},
                   child: Container(
                     height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 0
-                          ? "assets/icons/common/navbar/64/HomeTapped.png"
-                          : "assets/icons/common/navbar/64/Home.png",
+                          ? "assets/icons/common/navbar/HomeTapped.png"
+                          : "assets/icons/common/navbar/Home.png",
                       width: 28,
                       height: 28,
                     ),
                   ),
                 ),
                 TextButton(
-                  onPressed: () => {
-                    setState(() {
-                      _selectedIndex = 1;
-                    })
-                  },
+                  onPressed: () => {_selectedIndex = 1},
                   child: Container(
                     height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 1
-                          ? "assets/icons/common/navbar/64/MortarboardTapped.png"
-                          : "assets/icons/common/navbar/64/Mortarboard.png",
+                          ? "assets/icons/common/navbar/MortarboardTapped.png"
+                          : "assets/icons/common/navbar/Mortarboard.png",
                       width: 28,
                       height: 28,
                     ),
                   ),
                 ),
                 TextButton(
-                  onPressed: () => {
-                    setState(() {
-                      _selectedIndex = 2;
-                    })
-                  },
+                  onPressed: () => {_selectedIndex = 2},
                   child: Container(
                     height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 2
-                          ? "assets/icons/common/navbar/64/DocumentTapped.png"
-                          : "assets/icons/common/navbar/64/Document.png",
+                          ? "assets/icons/common/navbar/DocumentTapped.png"
+                          : "assets/icons/common/navbar/Document.png",
                       width: 28,
                       height: 28,
                     ),
                   ),
                 ),
                 TextButton(
-                  onPressed: () => {
-                    setState(() {
-                      _selectedIndex = 3;
-                    })
-                  },
+                  onPressed: () => {_selectedIndex = 3},
                   child: Container(
                     height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 3
-                          ? "assets/icons/common/navbar/64/MessageTapped.png"
-                          : "assets/icons/common/navbar/64/Message.png",
+                          ? "assets/icons/common/navbar/MessageTapped.png"
+                          : "assets/icons/common/navbar/Message.png",
                       width: 28,
                       height: 28,
                     ),
                   ),
                 ),
                 TextButton(
-                  onPressed: () => {
-                    setState(() {
-                      _selectedIndex = 4;
-                    })
-                  },
+                  onPressed: () => {_selectedIndex = 4},
                   child: Container(
                     height: 28,
                     alignment: Alignment.center,
                     child: Image.asset(
                       _selectedIndex == 4
-                          ? "assets/icons/common/navbar/64/MenuTapped.png"
-                          : "assets/icons/common/navbar/64/Menu.png",
+                          ? "assets/icons/common/navbar/MenuTapped.png"
+                          : "assets/icons/common/navbar/Menu.png",
                       width: 28,
                       height: 28,
                     ),
@@ -142,23 +119,7 @@ class _LayoutState extends State<MyLayout> {
       );
     } else {
       return const Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [],
-              ),
-              Text(
-                "클래스뮤즈에 오신것을 환영합니다!",
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-        ),
+        body: WelcomeScreen(),
       );
     }
   }
