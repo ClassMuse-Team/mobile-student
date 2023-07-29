@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile_student/states/screen_management.dart';
 import 'package:mobile_student/widgets/main_sign_button.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({
+class LoginScreen extends ConsumerWidget {
+  const LoginScreen(
+    this._isRegisterModeProvider, {
     super.key,
   });
+  final StateNotifierProvider<IsRegisterMode, Object?> _isRegisterModeProvider;
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Center(
@@ -58,7 +57,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               height: 16,
             ),
             const Text(
-              "다음중에 선택",
+              "다음으로 계속",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black87,
@@ -113,7 +112,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               height: 16,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () =>
+                  ref.watch(_isRegisterModeProvider.notifier).setValue(true),
               child: const Text(
                 "아직 계정이 없나요? 회원가입하세요!",
                 style: TextStyle(

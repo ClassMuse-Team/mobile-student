@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_student/screens/classroom_screen.dart';
+import 'package:mobile_student/screens/etcs/error.dart';
 import 'package:mobile_student/screens/feed_screen.dart';
 import 'package:mobile_student/screens/home_screen.dart';
 import 'package:mobile_student/screens/menu_screen.dart';
 import 'package:mobile_student/screens/message_screen.dart';
 import 'package:mobile_student/screens/login/login_screen.dart';
+import 'package:mobile_student/screens/register/register_screen.dart';
+import 'package:mobile_student/states/screen_management.dart';
+import 'package:mobile_student/widgets/navigations_bar.dart';
 
-class MyLayout extends StatelessWidget {
-  MyLayout({
-    super.key,
-    this.isLogined = false,
-  });
-  final bool isLogined;
-
-  int _selectedIndex = 0;
+class MyLayout extends ConsumerWidget {
+  MyLayout({super.key});
 
   static const List<Widget> _screens = <Widget>[
     HomeScreen(),
@@ -24,102 +22,32 @@ class MyLayout extends StatelessWidget {
     MenuScreen()
   ];
 
+  final _screenSelectedIndexProvider =
+      StateNotifierProvider((ref) => ScreenSelectedIndex());
+  final _isLoginedProvider = StateNotifierProvider((ref) => IsLogined());
+  final _isRegisterModeProvider =
+      StateNotifierProvider((ref) => IsRegisterMode());
   @override
-  Widget build(BuildContext context) {
-    if (isLogined) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final screenSelectedIndex = ref.watch(_screenSelectedIndexProvider);
+    final isLogined = ref.watch(_isLoginedProvider);
+    final isRegisterMode = ref.watch(_isRegisterModeProvider);
+    if (isLogined.toString() == "true") {
       return Scaffold(
-        // appBar: AppBar(),
-        body: _screens.elementAt(_selectedIndex),
-        bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(color: Colors.black12, width: 1),
-            ),
-          ),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton(
-                  onPressed: () => {_selectedIndex = 0},
-                  child: Container(
-                    height: 28,
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      _selectedIndex == 0
-                          ? "assets/icons/common/navbar/HomeTapped.png"
-                          : "assets/icons/common/navbar/Home.png",
-                      width: 28,
-                      height: 28,
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => {_selectedIndex = 1},
-                  child: Container(
-                    height: 28,
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      _selectedIndex == 1
-                          ? "assets/icons/common/navbar/MortarboardTapped.png"
-                          : "assets/icons/common/navbar/Mortarboard.png",
-                      width: 28,
-                      height: 28,
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => {_selectedIndex = 2},
-                  child: Container(
-                    height: 28,
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      _selectedIndex == 2
-                          ? "assets/icons/common/navbar/DocumentTapped.png"
-                          : "assets/icons/common/navbar/Document.png",
-                      width: 28,
-                      height: 28,
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => {_selectedIndex = 3},
-                  child: Container(
-                    height: 28,
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      _selectedIndex == 3
-                          ? "assets/icons/common/navbar/MessageTapped.png"
-                          : "assets/icons/common/navbar/Message.png",
-                      width: 28,
-                      height: 28,
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => {_selectedIndex = 4},
-                  child: Container(
-                    height: 28,
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      _selectedIndex == 4
-                          ? "assets/icons/common/navbar/MenuTapped.png"
-                          : "assets/icons/common/navbar/Menu.png",
-                      width: 28,
-                      height: 28,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        body: _screens.elementAt(int.parse(screenSelectedIndex.toString())),
+        bottomNavigationBar: MyNavBar(),
+      );
+    } else if (isRegisterMode.toString() == "true") {
+      return Scaffold(
+        body: RegisterScreen(_isRegisterModeProvider),
+      );
+    } else if (isRegisterMode.toString() == "false") {
+      return Scaffold(
+        body: LoginScreen(_isRegisterModeProvider),
       );
     } else {
       return const Scaffold(
-        body: WelcomeScreen(),
+        body: ErrorScreen(),
       );
     }
   }

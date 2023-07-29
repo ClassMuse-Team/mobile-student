@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_student/widgets/main_sign_button.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({
+class FindOrgScreen extends ConsumerWidget {
+  const FindOrgScreen({
     super.key,
   });
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Center(

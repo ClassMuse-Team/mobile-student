@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile_student/states/screen_management.dart';
 import 'package:mobile_student/widgets/main_sign_button.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({
+class RegisterScreen extends ConsumerWidget {
+  const RegisterScreen(
+    this._isRegisterModeProvider, {
     super.key,
   });
 
+  final StateNotifierProvider<IsRegisterMode, Object?> _isRegisterModeProvider;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Center(
@@ -23,7 +28,7 @@ class WelcomeScreen extends StatelessWidget {
               height: 32,
             ),
             const Text(
-              "클래스뮤즈에 오신것을 환영합니다!",
+              "클래스뮤즈의 회원가입을 진심으로 환영합니다!",
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -32,7 +37,7 @@ class WelcomeScreen extends StatelessWidget {
               height: 8,
             ),
             const Text(
-              "계속하기 위해서는 로그인이 필요합니다.",
+              "계속하기 위해서는 다음중 하나를 선택해야합니다.",
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -53,7 +58,7 @@ class WelcomeScreen extends StatelessWidget {
               height: 16,
             ),
             const Text(
-              "다음중에 선택",
+              "다음으로 계속",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black87,
@@ -64,7 +69,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             MainSignButton(
               icon: "assets/icons/common/social/Google.png",
-              title: "구글로 로그인",
+              title: "구글로 회원가입",
               bgColor: const Color.fromARGB(255, 225, 225, 225),
               // bgColor: Colors.black54,
               textColor: Colors.black,
@@ -75,7 +80,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             MainSignButton(
               icon: "assets/icons/common/social/KakaoTalk.png",
-              title: "카카오톡으로 로그인",
+              title: "카카오톡으로 회원가입",
               // bgColor: const Color(0xFFFBE300),
               bgColor: const Color(0xffFFCA28),
               textColor: Colors.black,
@@ -86,7 +91,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             MainSignButton(
               icon: "assets/icons/common/social/Discord.png",
-              title: "디스코드로 로그인",
+              title: "디스코드로 회원가입",
               bgColor: const Color(0xff5865F2),
               // bgColor: const Color.fromARGB(255, 125, 134, 239),
               textColor: Colors.white,
@@ -108,9 +113,10 @@ class WelcomeScreen extends StatelessWidget {
               height: 16,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () =>
+                  ref.watch(_isRegisterModeProvider.notifier).setValue(false),
               child: const Text(
-                "아직 계정이 없나요? 회원가입하세요!",
+                "이미 계정이 있으신가요? 로그인해주세요!",
                 style: TextStyle(
                   decoration: TextDecoration.underline,
                 ),

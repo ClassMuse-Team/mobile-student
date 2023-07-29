@@ -23,9 +23,7 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
         fontFamily: "Noto Sans KR",
       ),
-      home: MyLayout(
-        isLogined: false,
-      ),
+      home: MyLayout(),
     );
   }
 }
