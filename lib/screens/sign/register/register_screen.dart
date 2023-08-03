@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile_student/widgets/main_sign_button.dart';
+import 'package:mobile_student/riverpod/layout_manager/_main.dart';
+import 'package:mobile_student/riverpod/layout_manager/_register.dart';
+import 'package:mobile_student/riverpod/layout_manager/_sign.dart';
+import 'package:mobile_student/screens/sign/register/beta_code_screen.dart';
+import 'package:mobile_student/widgets/sign_btn/sign_btn.dart';
+import 'package:mobile_student/widgets/sign_btn/sign_btn_gradient.dart';
 
-class FindOrgScreen extends ConsumerWidget {
-  const FindOrgScreen({
+class RegisterScreen extends ConsumerWidget {
+  const RegisterScreen({
     super.key,
+    required this.isLoginedProvider,
+    required this.isRegisterModeProvider,
+    required this.registerscreenIndexProvider,
   });
+
+  final StateNotifierProvider<IsLogined, Object?> isLoginedProvider;
+  final StateNotifierProvider<IsRegisterMode, Object?> isRegisterModeProvider;
+  final StateNotifierProvider<RegisterScreenIndex, Object?>
+      registerscreenIndexProvider;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +37,7 @@ class FindOrgScreen extends ConsumerWidget {
               height: 32,
             ),
             const Text(
-              "클래스뮤즈에 오신것을 환영합니다!",
+              "클래스뮤즈와 함께하는 즐거운 수업시간!",
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -33,7 +46,7 @@ class FindOrgScreen extends ConsumerWidget {
               height: 8,
             ),
             const Text(
-              "계속하기 위해서는 로그인이 필요합니다.",
+              "다음중 하나를 선택해 계속해주세요.",
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -54,7 +67,7 @@ class FindOrgScreen extends ConsumerWidget {
               height: 16,
             ),
             const Text(
-              "다음중에 선택",
+              "다음으로 계속",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black87,
@@ -63,10 +76,10 @@ class FindOrgScreen extends ConsumerWidget {
             const SizedBox(
               height: 16,
             ),
-            MainSignButton(
+            SignButton(
               icon: "assets/icons/common/social/Google.png",
-              title: "구글로 로그인",
-              bgColor: const Color.fromARGB(255, 225, 225, 225),
+              title: "구글로 회원가입",
+              bgColor: const Color(0xffFFFFFF),
               // bgColor: Colors.black54,
               textColor: Colors.black,
               onPressed: () {},
@@ -74,9 +87,9 @@ class FindOrgScreen extends ConsumerWidget {
             const SizedBox(
               height: 6,
             ),
-            MainSignButton(
+            SignButton(
               icon: "assets/icons/common/social/KakaoTalk.png",
-              title: "카카오톡으로 로그인",
+              title: "카카오톡으로 회원가입",
               // bgColor: const Color(0xFFFBE300),
               bgColor: const Color(0xffFFCA28),
               textColor: Colors.black,
@@ -85,13 +98,15 @@ class FindOrgScreen extends ConsumerWidget {
             const SizedBox(
               height: 6,
             ),
-            MainSignButton(
-              icon: "assets/icons/common/social/Discord.png",
-              title: "디스코드로 로그인",
-              bgColor: const Color(0xff5865F2),
-              // bgColor: const Color.fromARGB(255, 125, 134, 239),
+            GradientSignButton(
+              icon: "assets/logos/IconLogoWhite.png",
+              title: "베타테스트 코드 입력",
+              // bgColor: const Color(0xFFFBE300),
+              gradientColorStart: const Color(0xffd250cb),
+              gradientColorEnd: const Color(0xff2975e2),
               textColor: Colors.white,
-              onPressed: () {},
+              onPressed: () =>
+                  ref.watch(registerscreenIndexProvider.notifier).setValue(1),
             ),
             Container(
               height: 32,
@@ -109,9 +124,10 @@ class FindOrgScreen extends ConsumerWidget {
               height: 16,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () =>
+                  ref.watch(isRegisterModeProvider.notifier).setValue(false),
               child: const Text(
-                "아직 계정이 없나요? 회원가입하세요!",
+                "이미 계정이 있으신가요? 로그인해주세요!",
                 style: TextStyle(
                   decoration: TextDecoration.underline,
                 ),

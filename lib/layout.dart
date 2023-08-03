@@ -1,49 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile_student/screens/classroom_screen.dart';
+import 'package:mobile_student/main.dart';
+// screens
+import 'package:mobile_student/screens/main/classroom_screen.dart';
 import 'package:mobile_student/screens/etcs/error.dart';
-import 'package:mobile_student/screens/feed_screen.dart';
-import 'package:mobile_student/screens/home_screen.dart';
-import 'package:mobile_student/screens/menu_screen.dart';
-import 'package:mobile_student/screens/message_screen.dart';
-import 'package:mobile_student/screens/login/login_screen.dart';
-import 'package:mobile_student/screens/register/register_screen.dart';
-import 'package:mobile_student/states/screen_management.dart';
+import 'package:mobile_student/screens/main/feed_screen.dart';
+import 'package:mobile_student/screens/main/home_screen.dart';
+import 'package:mobile_student/screens/main/menu_screen.dart';
+import 'package:mobile_student/screens/main/message_screen.dart';
+import 'package:mobile_student/screens/sign/layout.dart';
+// widgets
 import 'package:mobile_student/widgets/navigations_bar.dart';
+// riverpod files
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile_student/riverpod/layout_manager/_main.dart';
 
-class MyLayout extends ConsumerWidget {
-  MyLayout({super.key});
+class MainLayout extends ConsumerWidget {
+  MainLayout({super.key});
 
-  static const List<Widget> _screens = <Widget>[
-    HomeScreen(),
-    ClassroomScreen(),
-    FeedScreen(),
-    MessageScreen(),
-    MenuScreen()
-  ];
-
-  final _screenSelectedIndexProvider =
+  final screenSelectedIndexProvider =
       StateNotifierProvider((ref) => ScreenSelectedIndex());
-  final _isLoginedProvider = StateNotifierProvider((ref) => IsLogined());
-  final _isRegisterModeProvider =
-      StateNotifierProvider((ref) => IsRegisterMode());
+  final isLoginedProvider = StateNotifierProvider((ref) => IsLogined());
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenSelectedIndex = ref.watch(_screenSelectedIndexProvider);
-    final isLogined = ref.watch(_isLoginedProvider);
-    final isRegisterMode = ref.watch(_isRegisterModeProvider);
+    final List<Widget> screens = <Widget>[
+      const HomeScreen(),
+      ClassroomScreen(),
+      FeedScreen(),
+      MessageScreen(),
+      const MenuScreen()
+    ];
+    final screenSelectedIndex = ref.watch(screenSelectedIndexProvider);
+    final isLogined = ref.watch(isLoginedProvider);
     if (isLogined.toString() == "true") {
       return Scaffold(
-        body: _screens.elementAt(int.parse(screenSelectedIndex.toString())),
-        bottomNavigationBar: MyNavBar(),
+        body: screens.elementAt(int.parse(screenSelectedIndex.toString())),
+        // body: FutureBuilder<List<Map<String, dynamic>>>(
+        //   future: _future,
+        //   builder: (context, snapshot) {
+        //     if (!snapshot.hasData) {
+        //       return const Center(child: CircularProgressIndicator());
+        //     }
+        //     final classes = snapshot.data!;
+        //     debugPrint("$classes");
+        //     return ListView.builder(
+        //       itemCount: classes.length,
+        //       itemBuilder: ((context, index) {
+        //         final className = classes[index];
+        //         return Column(
+        //           children: [
+        //             Text(className['name']),
+        //             Text(className['description']),
+        //             const SizedBox(height: 40),
+        //           ],
+        //         );
+        //       }),
+        //     );
+        //   },
+        // ),
+        bottomNavigationBar:
+            NavBar(screenSelectedIndexProvider: screenSelectedIndexProvider),
       );
-    } else if (isRegisterMode.toString() == "true") {
+    } else if (isLogined.toString() == "false") {
       return Scaffold(
-        body: RegisterScreen(_isRegisterModeProvider),
-      );
-    } else if (isRegisterMode.toString() == "false") {
-      return Scaffold(
-        body: LoginScreen(_isRegisterModeProvider),
+        body: SignLayout(isLoginedProvider: isLoginedProvider),
       );
     } else {
       return const Scaffold(

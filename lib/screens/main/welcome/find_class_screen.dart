@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile_student/states/screen_management.dart';
-import 'package:mobile_student/widgets/main_sign_button.dart';
+import 'package:mobile_student/widgets/sign_btn/sign_btn.dart';
 
-class LoginScreen extends ConsumerWidget {
-  const LoginScreen(
-    this._isRegisterModeProvider, {
+class FindClassScreen extends ConsumerWidget {
+  const FindClassScreen({
     super.key,
   });
-  final StateNotifierProvider<IsRegisterMode, Object?> _isRegisterModeProvider;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,7 +54,7 @@ class LoginScreen extends ConsumerWidget {
               height: 16,
             ),
             const Text(
-              "다음으로 계속",
+              "다음중에 선택",
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black87,
@@ -66,7 +63,7 @@ class LoginScreen extends ConsumerWidget {
             const SizedBox(
               height: 16,
             ),
-            MainSignButton(
+            SignButton(
               icon: "assets/icons/common/social/Google.png",
               title: "구글로 로그인",
               bgColor: const Color.fromARGB(255, 225, 225, 225),
@@ -77,7 +74,7 @@ class LoginScreen extends ConsumerWidget {
             const SizedBox(
               height: 6,
             ),
-            MainSignButton(
+            SignButton(
               icon: "assets/icons/common/social/KakaoTalk.png",
               title: "카카오톡으로 로그인",
               // bgColor: const Color(0xFFFBE300),
@@ -88,7 +85,7 @@ class LoginScreen extends ConsumerWidget {
             const SizedBox(
               height: 6,
             ),
-            MainSignButton(
+            SignButton(
               icon: "assets/icons/common/social/Discord.png",
               title: "디스코드로 로그인",
               bgColor: const Color(0xff5865F2),
@@ -112,8 +109,7 @@ class LoginScreen extends ConsumerWidget {
               height: 16,
             ),
             InkWell(
-              onTap: () =>
-                  ref.watch(_isRegisterModeProvider.notifier).setValue(true),
+              onTap: () {},
               child: const Text(
                 "아직 계정이 없나요? 회원가입하세요!",
                 style: TextStyle(

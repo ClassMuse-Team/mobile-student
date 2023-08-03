@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile_student/states/screen_management.dart';
-import 'package:mobile_student/widgets/main_sign_button.dart';
+import 'package:mobile_student/riverpod/layout_manager/_sign.dart';
+import 'package:mobile_student/widgets/sign_btn/sign_btn.dart';
 
-class RegisterScreen extends ConsumerWidget {
-  const RegisterScreen(
+class TremScreen extends ConsumerWidget {
+  const TremScreen(
     this._isRegisterModeProvider, {
     super.key,
   });
@@ -28,7 +28,7 @@ class RegisterScreen extends ConsumerWidget {
               height: 32,
             ),
             const Text(
-              "클래스뮤즈의 회원가입을 진심으로 환영합니다!",
+              "클래스뮤즈와 함께하는 즐거운 수업시간!",
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -37,7 +37,7 @@ class RegisterScreen extends ConsumerWidget {
               height: 8,
             ),
             const Text(
-              "계속하기 위해서는 다음중 하나를 선택해야합니다.",
+              "다음중 하나를 선택해 계속해주세요.",
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -67,7 +67,7 @@ class RegisterScreen extends ConsumerWidget {
             const SizedBox(
               height: 16,
             ),
-            MainSignButton(
+            SignButton(
               icon: "assets/icons/common/social/Google.png",
               title: "구글로 회원가입",
               bgColor: const Color.fromARGB(255, 225, 225, 225),
@@ -78,23 +78,12 @@ class RegisterScreen extends ConsumerWidget {
             const SizedBox(
               height: 6,
             ),
-            MainSignButton(
+            SignButton(
               icon: "assets/icons/common/social/KakaoTalk.png",
               title: "카카오톡으로 회원가입",
               // bgColor: const Color(0xFFFBE300),
               bgColor: const Color(0xffFFCA28),
               textColor: Colors.black,
-              onPressed: () {},
-            ),
-            const SizedBox(
-              height: 6,
-            ),
-            MainSignButton(
-              icon: "assets/icons/common/social/Discord.png",
-              title: "디스코드로 회원가입",
-              bgColor: const Color(0xff5865F2),
-              // bgColor: const Color.fromARGB(255, 125, 134, 239),
-              textColor: Colors.white,
               onPressed: () {},
             ),
             Container(

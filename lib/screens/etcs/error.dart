@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_student/widgets/search_bar.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});

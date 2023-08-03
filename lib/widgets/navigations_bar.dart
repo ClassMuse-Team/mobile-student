@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile_student/states/screen_management.dart';
+import 'package:mobile_student/riverpod/layout_manager/_main.dart';
 
-class MyNavBar extends ConsumerWidget {
-  MyNavBar({super.key});
-  final _screenSelectedIndexProvider =
-      StateNotifierProvider((ref) => ScreenSelectedIndex());
+class NavBar extends ConsumerWidget {
+  const NavBar({required this.screenSelectedIndexProvider, super.key});
+
+  final StateNotifierProvider<ScreenSelectedIndex, Object?>
+      screenSelectedIndexProvider;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenSelectedIndex = ref.watch(_screenSelectedIndexProvider);
+    final screenSelectedIndex = ref.watch(screenSelectedIndexProvider);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       decoration: const BoxDecoration(
@@ -21,7 +23,7 @@ class MyNavBar extends ConsumerWidget {
         children: [
           TextButton(
             onPressed: () =>
-                ref.watch(_screenSelectedIndexProvider.notifier).setValue(0),
+                ref.watch(screenSelectedIndexProvider.notifier).setValue(0),
             child: Container(
               height: 28,
               alignment: Alignment.center,
@@ -36,7 +38,7 @@ class MyNavBar extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () =>
-                ref.watch(_screenSelectedIndexProvider.notifier).setValue(1),
+                ref.watch(screenSelectedIndexProvider.notifier).setValue(1),
             child: Container(
               height: 28,
               alignment: Alignment.center,
@@ -51,7 +53,7 @@ class MyNavBar extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () =>
-                ref.watch(_screenSelectedIndexProvider.notifier).setValue(2),
+                ref.watch(screenSelectedIndexProvider.notifier).setValue(2),
             child: Container(
               height: 28,
               alignment: Alignment.center,
@@ -66,7 +68,7 @@ class MyNavBar extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () =>
-                ref.watch(_screenSelectedIndexProvider.notifier).setValue(3),
+                ref.watch(screenSelectedIndexProvider.notifier).setValue(3),
             child: Container(
               height: 28,
               alignment: Alignment.center,
@@ -81,7 +83,7 @@ class MyNavBar extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () =>
-                ref.watch(_screenSelectedIndexProvider.notifier).setValue(4),
+                ref.watch(screenSelectedIndexProvider.notifier).setValue(4),
             child: Container(
               height: 28,
               alignment: Alignment.center,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MainSignButton extends StatelessWidget {
-  const MainSignButton({
+class SignButton extends StatelessWidget {
+  const SignButton({
     super.key,
     required this.icon,
     required this.title,
@@ -22,13 +22,13 @@ class MainSignButton extends StatelessWidget {
       customBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
-      onTap: () {},
+      onTap: onPressed,
       child: Ink(
         height: 48,
         width: 300,
         decoration: BoxDecoration(
           color: bgColor,
-          // border: Border.all(color: bgColor, width: 1),
+          border: Border.all(color: Colors.black54, width: 1),
           borderRadius: const BorderRadius.all(
             Radius.circular(8),
           ),
@@ -40,6 +40,7 @@ class MainSignButton extends StatelessWidget {
             Container(
               height: 32,
               width: 48,
+              padding: const EdgeInsets.only(left: 2.4),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 border: Border(
